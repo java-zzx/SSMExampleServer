@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+        http://www.springframework.org/schema/cache   
+        http://www.springframework.org/schema/cache/spring-cache.xsd
+        ">
+	<!--<context:annotation-config/>-->
+
+	<!-- 读取配置文件 -->
+	<context:property-placeholder
+		location="classpath:spring-mysql-c3p0.properties" />
+
+	
+
+	<!-- 扫描注解，除去web层注解，web层注解在mvc配置中扫描 -->
+	<context:component-scan
+		base-package="ssm.autoCode.portal.*.*.*.mapper,ssm.autoCode.portal.*.*.*.service,ssm.autoCode.portal.*.*.*.model">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.RestController" />
+	</context:component-scan>
+
+
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true" />
+
+	
+	
+	<import resource="spring-mybatis.xml" />
+	
+
+
+	<!-- 基于注释的事务，当注释中发现@Transactional时，使用id为“transactionManager”的事务管理器 -->
+	<!-- 如果没有设置transaction-manager的值，则spring以缺省默认的事务管理器来处理事务，默认事务管理器为第一个加载的事务管理器 -->
+
+	<tx:annotation-driven transaction-manager="transactionManager"  />
+	
+	<tx:annotation-driven transaction-manager="transactionManagerLog"  />
+
+	<!-- 上传解析 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="3000000" />
+	</bean>
+	<!-- <bean id="springContextUtil" class="ssm.autoCode.portal.base.utils.SpringContextUtil"/> -->
+	<bean id="springContextUtils" class="ssm.autoCode.portal.base.utils.SpringContextUtils"/>
+	<!-- <bean id="baseService" class="ssm.autoCode.portal.base.common.service.BaseService"/> -->
+	
+	<!--  缓存  属性-->  
+    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">    
+        <property name="configLocation"  value="classpath:ehcache.xml"/>   
+    </bean>   
+    <!--   <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:config-location="classpath:ehcache.xml" p:shared="true"/> -->
+    <!-- 支持缓存注解 -->  
+    <cache:annotation-driven cache-manager="cacheManager" />  
+      
+    <!-- 默认是cacheManager -->  
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">    
+        <property name="cacheManager"  ref="cacheManagerFactory"/>    
+    </bean> 
+	
+</beans>

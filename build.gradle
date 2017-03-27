@@ -1,0 +1,103 @@
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'maven'
+
+[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+
+eclipse {
+	wtp {
+		component {
+			contextPath = 'SSMExampleServer'
+			deployName = 'SSMExampleServer'
+		}
+		facet {
+			facet name: 'jst.java', version: '1.7'
+			facet name: 'jst.web', version: '2.5'
+		}
+	}
+}
+	
+repositories {
+	mavenCentral()
+}
+
+ext.versions = [
+	spring: '4.2.1.RELEASE',
+	mybatis: '3.3.0',
+	jacksonAnnotations:'2.8.5',
+	jacksonCore:'2.8.5',
+	jacksonDatabind:'2.8.5',
+	jacksonCoreAsl:'1.9.13',
+	jacksonJaxrs:'1.9.13',
+	jacksonMapperAsl:'1.9.13'
+]
+
+dependencies {
+	compile "com.fasterxml.jackson.core:jackson-annotations:${versions.jacksonAnnotations}"
+	compile "com.fasterxml.jackson.core:jackson-core:${versions.jacksonCore}"
+	compile "org.codehaus.jackson:jackson-core-asl:${versions.jacksonCoreAsl}"
+	compile "com.fasterxml.jackson.core:jackson-databind:${versions.jacksonDatabind}"
+	compile "org.codehaus.jackson:jackson-jaxrs:${versions.jacksonJaxrs}"
+	compile "org.codehaus.jackson:jackson-mapper-asl:${versions.jacksonMapperAsl}"
+	testCompile 'com.jayway.restassured:rest-assured:2.9.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.springframework:spring-test:4.2.5.RELEASE'
+    testCompile 'org.hamcrest:hamcrest-core:1.3'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
+    testCompile 'com.jayway.restassured:spring-mock-mvc:2.9.0'
+    //testCompile "org.springframework.restdocs:spring-restdocs-restassured:1.1.0.RC1"
+
+    //maven浠撳簱涓績娌℃湁鐨刯ar锛屽垯鏀惧叆libs鐩綍涓�
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'org.springframework:spring-webmvc:4.2.1.RELEASE'
+    compile 'org.springframework:spring-orm:4.2.1.RELEASE'
+    compile 'org.springframework:spring-context-support:4.2.1.RELEASE'
+    compile 'mysql:mysql-connector-java:5.1.38'
+    compile 'org.mybatis:mybatis:3.3.0'
+    compile 'org.mybatis:mybatis-spring:1.2.3'
+    compile 'com.github.pagehelper:pagehelper:4.1.3'
+    compile 'org.apache.shiro:shiro-spring:1.2.4'
+    compile 'org.apache.shiro:shiro-web:1.2.4'
+
+
+    compile 'org.apache.tomcat:tomcat-jdbc:8.0.33'
+    compile 'javax.mail:mail:1.4.7'
+    //compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'org.aspectj:aspectjweaver:1.8.9'
+    compile 'commons-fileupload:commons-fileupload:1.3.1'
+    //compile 'org.slf4j:slf4j-log4j12:1.7.21'
+    compile group: 'org.codehaus.janino', name: 'janino', version: '3.0.6'
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.22'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.22'
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.22'
+    compile group: 'com.googlecode.log4jdbc', name: 'log4jdbc', version: '1.2'
+    compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc3', version: '1.12'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.8'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.8'
+    compile 'tk.mybatis:mapper:3.3.8'
+    compile "com.alibaba:fastjson:1.2.7"
+    
+    
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+
+    //compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.7.3'
+
+    //swagger
+    compile "io.springfox:springfox-swagger2:2.4.0"
+    compile 'io.springfox:springfox-swagger-ui:2.4.0'
+    compile 'io.springfox:springfox-staticdocs:2.4.0'
+
+	compile 'org.mybatis.generator:mybatis-generator-core:1.3.5'
+    compile 'mysql:mysql-connector-java:5.1.38'
+    compile 'tk.mybatis:mapper:3.3.8'
+    compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+    
+    //testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.0.RC1'
+    compile 'io.github.robwin:assertj-swagger:0.1.2'
+    compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.3'
+    compile group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
+    //testCompile 'com.fasterxml.jackson.module:jackson-module-jsonSchema:2.4.0'
+}

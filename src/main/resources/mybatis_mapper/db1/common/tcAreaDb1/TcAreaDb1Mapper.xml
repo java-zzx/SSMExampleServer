@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.autoCode.portal.db1.common.tcAreaDb1.mapper.TcAreaDb1Mapper">
+  <resultMap id="BaseResultMap" type="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1">
+    <id column="county_code" jdbcType="CHAR" property="countyCode" />
+    <result column="provin_code" jdbcType="CHAR" property="provinCode" />
+    <result column="provin_name" jdbcType="VARCHAR" property="provinName" />
+    <result column="provin_pym" jdbcType="VARCHAR" property="provinPym" />
+    <result column="city_code" jdbcType="CHAR" property="cityCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="city_pym" jdbcType="VARCHAR" property="cityPym" />
+    <result column="county_name" jdbcType="VARCHAR" property="countyName" />
+    <result column="county_pym" jdbcType="VARCHAR" property="countyPym" />
+    <result column="is_hotcity" jdbcType="CHAR" property="isHotcity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    county_code, provin_code, provin_name, provin_pym, city_code, city_name, city_pym, 
+    county_name, county_pym, is_hotcity
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tc_area_db1
+    where county_code = #{countyCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1">
+    delete from tc_area_db1
+    where county_code = #{countyCode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1">
+    insert into tc_area_db1 (county_code, provin_code, provin_name, 
+      provin_pym, city_code, city_name, 
+      city_pym, county_name, county_pym, 
+      is_hotcity)
+    values (#{countyCode,jdbcType=CHAR}, #{provinCode,jdbcType=CHAR}, #{provinName,jdbcType=VARCHAR}, 
+      #{provinPym,jdbcType=VARCHAR}, #{cityCode,jdbcType=CHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{cityPym,jdbcType=VARCHAR}, #{countyName,jdbcType=VARCHAR}, #{countyPym,jdbcType=VARCHAR}, 
+      #{isHotcity,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1">
+    insert into tc_area_db1
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="countyCode != null">
+        county_code,
+      </if>
+      <if test="provinCode != null">
+        provin_code,
+      </if>
+      <if test="provinName != null">
+        provin_name,
+      </if>
+      <if test="provinPym != null">
+        provin_pym,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="cityPym != null">
+        city_pym,
+      </if>
+      <if test="countyName != null">
+        county_name,
+      </if>
+      <if test="countyPym != null">
+        county_pym,
+      </if>
+      <if test="isHotcity != null">
+        is_hotcity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="countyCode != null">
+        #{countyCode,jdbcType=CHAR},
+      </if>
+      <if test="provinCode != null">
+        #{provinCode,jdbcType=CHAR},
+      </if>
+      <if test="provinName != null">
+        #{provinName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinPym != null">
+        #{provinPym,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=CHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityPym != null">
+        #{cityPym,jdbcType=VARCHAR},
+      </if>
+      <if test="countyName != null">
+        #{countyName,jdbcType=VARCHAR},
+      </if>
+      <if test="countyPym != null">
+        #{countyPym,jdbcType=VARCHAR},
+      </if>
+      <if test="isHotcity != null">
+        #{isHotcity,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1">
+    update tc_area_db1
+    <set>
+      <if test="provinCode != null">
+        provin_code = #{provinCode,jdbcType=CHAR},
+      </if>
+      <if test="provinName != null">
+        provin_name = #{provinName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinPym != null">
+        provin_pym = #{provinPym,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=CHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityPym != null">
+        city_pym = #{cityPym,jdbcType=VARCHAR},
+      </if>
+      <if test="countyName != null">
+        county_name = #{countyName,jdbcType=VARCHAR},
+      </if>
+      <if test="countyPym != null">
+        county_pym = #{countyPym,jdbcType=VARCHAR},
+      </if>
+      <if test="isHotcity != null">
+        is_hotcity = #{isHotcity,jdbcType=CHAR},
+      </if>
+    </set>
+    where county_code = #{countyCode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1">
+    update tc_area_db1
+    set provin_code = #{provinCode,jdbcType=CHAR},
+      provin_name = #{provinName,jdbcType=VARCHAR},
+      provin_pym = #{provinPym,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=CHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      city_pym = #{cityPym,jdbcType=VARCHAR},
+      county_name = #{countyName,jdbcType=VARCHAR},
+      county_pym = #{countyPym,jdbcType=VARCHAR},
+      is_hotcity = #{isHotcity,jdbcType=CHAR}
+    where county_code = #{countyCode,jdbcType=CHAR}
+  </update>
+
+	<select id="selectList" resultMap="BaseResultMap" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1" >
+		select
+			<include refid="Base_Column_List" />
+		from tc_area_db1
+		<where>
+			1=1 
+			<if test="cityName != null" >
+				and city_name = #{cityName}
+			</if>
+			<if test="cityPym != null" >
+				and city_pym = #{cityPym}
+			</if>
+			<if test="provinName != null" >
+				and provin_name = #{provinName}
+			</if>
+			<if test="isHotcity != null" >
+				and is_hotcity = #{isHotcity}
+			</if>
+			<if test="countyPym != null" >
+				and county_pym = #{countyPym}
+			</if>
+			<if test="cityCode != null" >
+				and city_code = #{cityCode}
+			</if>
+			<if test="provinPym != null" >
+				and provin_pym = #{provinPym}
+			</if>
+			<if test="countyName != null" >
+				and county_name = #{countyName}
+			</if>
+			<if test="provinCode != null" >
+				and provin_code = #{provinCode}
+			</if>
+			<if test="countyCode != null" >
+				and county_code = #{countyCode}
+			</if>
+		</where>
+	</select>
+	<select id="countAll" resultType="int" parameterType="ssm.autoCode.portal.db1.common.tcAreaDb1.model.TcAreaDb1" >
+		select count(id) from tc_area_db1 
+		<where>
+			1=1 
+			<if test="cityName != null" >
+				and city_name = #{cityName}
+			</if>
+			<if test="cityPym != null" >
+				and city_pym = #{cityPym}
+			</if>
+			<if test="provinName != null" >
+				and provin_name = #{provinName}
+			</if>
+			<if test="isHotcity != null" >
+				and is_hotcity = #{isHotcity}
+			</if>
+			<if test="countyPym != null" >
+				and county_pym = #{countyPym}
+			</if>
+			<if test="cityCode != null" >
+				and city_code = #{cityCode}
+			</if>
+			<if test="provinPym != null" >
+				and provin_pym = #{provinPym}
+			</if>
+			<if test="countyName != null" >
+				and county_name = #{countyName}
+			</if>
+			<if test="provinCode != null" >
+				and provin_code = #{provinCode}
+			</if>
+			<if test="countyCode != null" >
+				and county_code = #{countyCode}
+			</if>
+		</where>
+	</select>
+	<select id="selectPage" resultMap="BaseResultMap"  >
+		select 
+			<include refid="Base_Column_List" />
+		from tc_area_db1 
+		<where>
+			1=1 
+			<if test="record.cityName != null" >
+				and city_name = #{record.cityName}
+			</if>
+			<if test="record.cityPym != null" >
+				and city_pym = #{record.cityPym}
+			</if>
+			<if test="record.provinName != null" >
+				and provin_name = #{record.provinName}
+			</if>
+			<if test="record.isHotcity != null" >
+				and is_hotcity = #{record.isHotcity}
+			</if>
+			<if test="record.countyPym != null" >
+				and county_pym = #{record.countyPym}
+			</if>
+			<if test="record.cityCode != null" >
+				and city_code = #{record.cityCode}
+			</if>
+			<if test="record.provinPym != null" >
+				and provin_pym = #{record.provinPym}
+			</if>
+			<if test="record.countyName != null" >
+				and county_name = #{record.countyName}
+			</if>
+			<if test="record.provinCode != null" >
+				and provin_code = #{record.provinCode}
+			</if>
+			<if test="record.countyCode != null" >
+				and county_code = #{record.countyCode}
+			</if>
+			limit #{pageNo}, #{pageSize}
+		</where>
+	</select>
+	<select id="getMaxId" resultType="java.lang.String"  parameterType="java.lang.String" >
+		select max(county_code) from tc_area_db1 where county_code like concat(#{code},'%') 
+	</select>
+</mapper>
